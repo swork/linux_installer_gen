@@ -1,0 +1,57 @@
+d-i	debian-installer/locale	string	en_US.UTF-8
+d-i	keyboard-configuration/modelcode	string	pc105
+d-i	keyboard-configuration/layout	string	English (US)
+d-i	keyboard-configuration/variant	string	English (US)
+d-i	keyboard-configuration/xkb-keymap	string	us
+d-i	keyboard-configuration/altgr	string	The default for the keyboard layout
+d-i	keyboard-configuration/layoutcode	string	us
+d-i	console-setup/ask_detect	boolean	false
+
+d-i	mirror/country string	manual
+d-i	mirror/http/hostname	string	us.archive.ubuntu.com
+d-i	mirror/http/directory	string	/ubuntu/
+d-i	mirror/http/proxy	string
+d-i	mirror/suite		string	raring
+
+clock-setup	clock-setup/ntp	boolean	false
+clock-setup	clock-setup/utc	boolean	true
+# d-i	cdrom/codename	string	raring
+# d-i	cdrom-detect/cdrom_device	string	/dev/sr0
+d-i	debian-installer/exit/poweroff	boolean	true
+d-i	tasksel/first	multiselect	Basic Ubuntu server
+finish-install	finish-install/reboot_in_progress	note	
+grub-installer	grub-installer/only_debian	boolean	true
+grub-installer	grub-installer/with_other_os	boolean	true
+netcfg	netcfg/choose_interface	string	eth1
+netcfg	netcfg/enable	boolean	true
+netcfg	netcfg/get_hostname	string	festerbase
+netcfg	netcfg/network-manager	boolean	false
+
+d-i partman-auto/disk string /dev/sda
+d-i partman-auto/method string regular
+d-i partman-auto/choose-recipe string atomic
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition string finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+pkgsel	pkgsel/include	string	openssh-server
+pkgsel	pkgsel/updatedb	boolean	false
+pkgsel	pkgsel/update-policy	string	none
+
+tzsetup-udeb	time/zone	string	America/Los_Angeles
+# tzsetup-udeb	tzsetup/detected	boolean	true
+# tzsetup-udeb	tzsetup/geoip_server	string	http://geoip.ubuntu.com/lookup
+# tzsetup-udeb	tzsetup/select_all	select	
+tzsetup-udeb	tzsetup/selected	boolean	true
+user-setup-udeb	passwd/user-default-groups	string	adm cdrom dip lpadmin plugdev sambashare debian-tor
+user-setup-udeb	passwd/user-fullname	string	Fester Bestertester
+user-setup-udeb	passwd/username	string	fester
+user-setup-udeb	passwd/user-password	string	bestertester
+user-setup-udeb	passwd/user-password-again	string	bestertester
+user-setup-udeb	user-setup/allow-password-weak	boolean	true
+user-setup-udeb	user-setup/encrypt-home	boolean	false
+user-setup-udeb	user-setup/force-encrypt-home	boolean	false
+
+d-i preseed/late_command string chroot /target bash -c '(echo "auto eth0"; echo "iface eth0 inet static"; echo "address 10.3.0.3"; echo "netmask 255.255.255.0") >> /etc/network/interfaces'
+

@@ -1,0 +1,44 @@
+Linux installer generation
+
+Preseeding an Ubuntu distribution
+CD.
+
+Here we provide the code and procedures that were used to create the
+installation CD. This procedure is not expected to change much or to
+get used very often, so we haven't invested much in making it
+easy. This README is pretty much all you get. Good luck, Jim.
+
+1. You need a Linux VM to begin with. It needs host folder sharing
+   enabled, with a share established that can reach the directory
+   containing this README. It needs about a gigabyte of free
+   space. Make a symlink ~/lx pointing to this directory from a user
+   account on that VM.
+
+2. You need the Ubuntu network installer, the ~30MB mini.iso image for
+   Ubuntu 13.04. Find it, won't be hard. Put it in this directory
+   (alongside this README).
+
+3. From the user account on the VM type "~/lx/unpack-mini.sh" (without
+   the quotes). It should find your mini.iso file and unpack it into
+   ~/cdm, and unpack the contained initrd.gz into ~/rdm. Watch the
+   output for errors and cope if you see any.
+
+4. From the user account on the VM now type "~/lx/repack-mini.sh"
+   (without the quotes). It should apply some changes to the unpacked
+   directories and regenerate the CD image, placing the result in
+   ~/fester-vm-installer.iso on the VM.
+
+Presumably you're going through these steps because you need to change
+what's installed during the initial VM imaging steps.
+That implies you'll need to test and possibly redo
+your changes, which with the network installer can be
+time-consuming. Fear not, we can go through pretty much the same
+process with the full Ubuntu 13.04 Server install disk instead,
+substituting unpack.sh and repack.sh for the -mini versions mentioned
+above. The resulting ISO still requires network access to operate, but
+loads most packages from the (much larger) CD image. There's even
+trim.py, a little program you can run between unpack.sh and repack.sh
+(at least on a second or subsequent run) to trim the contents of this
+full CD down to just those packages actually needed, cutting it from
+about 700MiB to around 300MiB in size.
+
